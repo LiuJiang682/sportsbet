@@ -11,7 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import au.com.sportsbet.common.CollectionUtils;
-import au.com.sportsbet.traffic.FileFixture;
+import au.com.sportsbet.traffic.fixture.FileFixture;
 
 public class FileReaderIT {
 	private FileReader testInstance;

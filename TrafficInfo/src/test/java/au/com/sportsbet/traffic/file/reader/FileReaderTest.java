@@ -11,8 +11,8 @@ import org.junit.Test;
 import org.mockito.MockitoAnnotations;
 
 import au.com.sportsbet.common.CollectionUtils;
-import au.com.sportsbet.traffic.FileFixture;
 import au.com.sportsbet.traffic.file.reader.FileReader;
+import au.com.sportsbet.traffic.fixture.FileFixture;
 
 
 public class FileReaderTest {

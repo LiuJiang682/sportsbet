@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import au.com.sportsbet.traffic.constants.Constants.Strings;
+import au.com.sportsbet.common.constants.Constants.Strings;
 
 public class FileReader implements Reader {
 
