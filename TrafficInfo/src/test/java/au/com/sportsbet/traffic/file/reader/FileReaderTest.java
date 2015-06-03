@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.mockito.MockitoAnnotations;
 
 import au.com.sportsbet.common.CollectionUtils;
+import au.com.sportsbet.traffic.FileFixture;
 import au.com.sportsbet.traffic.file.reader.FileReader;
 
 
@@ -24,7 +25,7 @@ public class FileReaderTest {
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
 		trafficDetails = new ArrayList<>();
-		testInstance = new FileReader("src/test/resources/testDataFile.txt");
+		testInstance = new FileReader(FileFixture.TEST_DATA_FILE_NAME);
 	}
 
 	@After
