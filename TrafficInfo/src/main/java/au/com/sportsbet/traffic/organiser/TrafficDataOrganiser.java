@@ -17,8 +17,6 @@ public class TrafficDataOrganiser {
 	private static final Logger LOGGER = Logger
 			.getLogger(TrafficDataOrganiser.class.getName());
 
-	private static final String DIRECTION_A = "A";
-
 	private static final Long DEFAULT_CAR_SPEED = new Long(60000);
 	private static final Long HOUR_IN_MILLISECOND = new Long(3600000);
 	private static final Double DEFAULT_SPEED_IN_MILLISECOND = ((double) DEFAULT_CAR_SPEED)
@@ -65,11 +63,9 @@ public class TrafficDataOrganiser {
 			if (isNewRecord(timeStr, previousTimeStr)) {
 				TrafficRecord record = new TrafficRecordImpl(direction, day,
 						hhmmssStr, details);
-				if (DIRECTION_A.equalsIgnoreCase(direction)) {
-					trafficInfoBase.addDirectionARecord(record);
-				} else {
-					trafficInfoBase.addDirectionBRecord(record);
-				}
+
+				trafficInfoBase.addTrafficRecord(direction, record);
+
 				// Update the previous time string.
 				previousTimeStr = timeStr;
 			}

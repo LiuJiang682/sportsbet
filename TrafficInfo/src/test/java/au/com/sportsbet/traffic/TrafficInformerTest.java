@@ -23,9 +23,10 @@ import au.com.sportsbet.traffic.data.base.TrafficInfoBase;
 import au.com.sportsbet.traffic.file.reader.FileReader;
 import au.com.sportsbet.traffic.fixture.FileFixture;
 import au.com.sportsbet.traffic.organiser.TrafficDataOrganiser;
+import au.com.sportsbet.traffic.user.UserInteractive;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({FileReader.class, TrafficInformer.class, TrafficDataOrganiser.class})
+@PrepareForTest({FileReader.class, TrafficInformer.class, TrafficDataOrganiser.class, UserInteractive.class})
 public class TrafficInformerTest {
 
 	@Mock
@@ -34,6 +35,8 @@ public class TrafficInformerTest {
 	private List<String> mockList;
 	@Mock
 	private TrafficInfoBase mockTrafficInfoBase;
+	@Mock
+	private UserInteractive mockUserInteractive;
 	
 	@Before
 	public void setUp() {
@@ -85,5 +88,15 @@ public class TrafficInformerTest {
 		
 		PowerMockito.verifyStatic();
 		TrafficDataOrganiser.doDataOrganise(mockList);
+	}
+	
+	@Test
+	public void testDoUserInteractive() throws Exception {
+		PowerMockito.whenNew(UserInteractive.class).withArguments(mockTrafficInfoBase).thenReturn(mockUserInteractive);
+		
+		TrafficInformer trafficInformer = new TrafficInformer(FileFixture.TEST_DATA_FILE_NAME);
+		trafficInformer.doUserInteractive(mockTrafficInfoBase);
+		
+		verify(mockUserInteractive).start();
 	}
 }

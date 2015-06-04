@@ -3,6 +3,7 @@ package au.com.sportsbet.traffic.dto;
 import java.io.Serializable;
 
 import au.com.sportsbet.common.WeekDay;
+import au.com.sportsbet.common.constants.Constants.Numeral;
 
 public class TrafficRecordImpl implements TrafficRecord, Serializable {
 
@@ -10,7 +11,9 @@ public class TrafficRecordImpl implements TrafficRecord, Serializable {
 	 * Generated serial version UID.
 	 */
 	private static final long serialVersionUID = 8527066244223124970L;
-	
+
+	private static final String DEL = ":";
+
 	private String direction;
 	private WeekDay day;
 	private String hhmmss;
@@ -27,6 +30,7 @@ public class TrafficRecordImpl implements TrafficRecord, Serializable {
 		return direction;
 	}
 
+	@Override
 	public WeekDay getDay() {
 		return day;
 	}
@@ -37,6 +41,12 @@ public class TrafficRecordImpl implements TrafficRecord, Serializable {
 
 	public String getOrginal() {
 		return orginal;
+	}
+
+	@Override
+	public int getHour() {
+		String[] times = this.getHhmmss().split(DEL); 
+		return Integer.parseInt(times[Numeral.ZERO]);
 	}
 	
 }

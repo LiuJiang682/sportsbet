@@ -9,6 +9,7 @@ import au.com.sportsbet.traffic.data.base.TrafficInfoBase;
 import au.com.sportsbet.traffic.file.reader.FileReader;
 import au.com.sportsbet.traffic.file.reader.Reader;
 import au.com.sportsbet.traffic.organiser.TrafficDataOrganiser;
+import au.com.sportsbet.traffic.user.UserInteractive;
 
 public class TrafficInformer {
 
@@ -34,7 +35,7 @@ public class TrafficInformer {
 	}
 	
 	void doUserInteractive(TrafficInfoBase trafficInfoBase) {
-		
+		new UserInteractive(trafficInfoBase).start();
 	}
 
 	TrafficInfoBase doDataSorting(List<String> trafficDetails) {
