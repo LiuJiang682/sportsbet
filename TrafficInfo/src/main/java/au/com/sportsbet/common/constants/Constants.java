@@ -25,6 +25,7 @@ public interface Constants {
 		static final int TWENTY_ONE = 21;
 		static final Integer TWO = 2;
 		public static final int THIRTY = 30;
+		public static final int TWENTY_FOUR = 24;
 	}
 
 }

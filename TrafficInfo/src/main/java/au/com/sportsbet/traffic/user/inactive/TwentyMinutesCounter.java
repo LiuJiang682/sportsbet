@@ -17,9 +17,11 @@ public class TwentyMinutesCounter extends BaseCounter {
 	private static final int FORTY = 40;
 
 	private List<TrafficRecord> records;
-
-	public TwentyMinutesCounter(List<TrafficRecord> records) {
+	private String direction;
+	
+	public TwentyMinutesCounter(List<TrafficRecord> records, final String direction) {
 		this.records = records;
+		this.direction = direction;
 	}
 
 	@Override
@@ -62,16 +64,16 @@ public class TwentyMinutesCounter extends BaseCounter {
 		}
 
 		displayResult(mondayMap, tuesdayMap, wednesdayMap, thursdayMap,
-				fridayMap);
+				fridayMap, direction);
 	}
 
 	static void displayResult(Map<String, Integer> mondayMap,
 			Map<String, Integer> tuesdayMap, Map<String, Integer> wednesdayMap,
-			Map<String, Integer> thursdayMap, Map<String, Integer> fridayMap) {
+			Map<String, Integer> thursdayMap, Map<String, Integer> fridayMap, final String direction) {
 		System.out
 				.println(Strings.NL
 						+ Strings.NL
-						+ "====================== Twenty Minutes Result ==============================="
+						+ "====================== Twenty Minutes Result for direction " + direction + " ==============================="
 						+ Strings.NL);
 		printWeekDayTitle();
 

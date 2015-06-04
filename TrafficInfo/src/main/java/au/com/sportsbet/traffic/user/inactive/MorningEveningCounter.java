@@ -9,9 +9,11 @@ import au.com.sportsbet.traffic.dto.TrafficRecord;
 public class MorningEveningCounter extends BaseCounter {
 
 	private List<TrafficRecord> records;
+	private String direction;
 	
-	public MorningEveningCounter(List<TrafficRecord> records) {
+	public MorningEveningCounter(List<TrafficRecord> records, final String direction) {
 		this.records = records;
+		this.direction = direction;
 	}
 
 	@Override
@@ -70,14 +72,14 @@ public class MorningEveningCounter extends BaseCounter {
 			printMorningEveningCount(mondayMorning, tuesdayMorning,
 					wednesadyMorning, thursdayMorning, fridayMorning,
 					mondayEvening, tuesdayEvening, wednesadyEvening,
-					thursdayEvening, fridayEvening);
+					thursdayEvening, fridayEvening, this.direction);
 		}
 	
 		static void printMorningEveningCount(int mondayMorning, int tuesdayMorning,
 				int wednesadyMorning, int thursdayMorning, int fridayMorning,
 				int mondayEvening, int tuesdayEvening, int wednesadyEvening,
-				int thursdayEvening, int fridayEvening) {
-			System.out.println(Strings.NL + Strings.NL + "====================Morning vs Evening result =================" + Strings.NL);
+				int thursdayEvening, int fridayEvening, final String direction) {
+			System.out.println(Strings.NL + Strings.NL + "====================Morning vs Evening result for direction " + direction + " =================" + Strings.NL);
 			printWeekDayTitle();
 			
 			StringBuilder buf = new StringBuilder("Morning");

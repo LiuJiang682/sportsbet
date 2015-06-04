@@ -2,22 +2,33 @@ package au.com.sportsbet.traffic.user;
 
 import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 import au.com.sportsbet.common.constants.Constants.Strings;
 import au.com.sportsbet.traffic.data.base.TrafficInfoBase;
 import au.com.sportsbet.traffic.dto.TrafficRecord;
+import au.com.sportsbet.traffic.user.inactive.FifteenMinutesCounter;
 import au.com.sportsbet.traffic.user.inactive.HalfHourCounter;
 import au.com.sportsbet.traffic.user.inactive.HourCounter;
 import au.com.sportsbet.traffic.user.inactive.MorningEveningCounter;
+import au.com.sportsbet.traffic.user.inactive.PeakTimeCounter;
+import au.com.sportsbet.traffic.user.inactive.TwentyMinutesCounter;
 
 public class UserInteractive {
+	private static final Logger LOGGER = Logger.getLogger(UserInteractive.class
+			.getName());
 
+	private static final String TWENTY_MINUTES = "4";
+	private static final String HALF_HOUR = "3";
 	private static final String HOURS = "2";
 	private static final String MORNING_VS_EVENING = "1";
-	private static final String COMMAND_PEAK_TIME_QUERY = "3";
+	private static final String COMMAND_PEAK_TIME_QUERY = HALF_HOUR;
 	private static final String COMMAND_SUMMARY_QUERY = HOURS;
 	private static final String COMMAND_DETAIL_QUERY = MORNING_VS_EVENING;
 	private static final String COMMAND_QUIT = "q";
+	private static final int NUMBER_OF_DAYS = 5;
+	private static final String FIFTEEN_MINUTES = "5";
+	
 	private TrafficInfoBase trafficInfoBase;
 
 	public UserInteractive(TrafficInfoBase trafficInfoBase) {
@@ -59,13 +70,29 @@ public class UserInteractive {
 	}
 
 	private void doPeakTimeQuery(Scanner inputReader) {
-		// TODO Auto-generated method stub
-
+		List<TrafficRecord> records = this.getTrafficInfoBase().getTrafficRecords(Strings.DIRECTION_A);
+		new PeakTimeCounter(records, Strings.DIRECTION_A).countAndDisplay();
+		records = this.getTrafficInfoBase().getTrafficRecords(Strings.DIRECTION_B);
+		new PeakTimeCounter(records, Strings.DIRECTION_B).countAndDisplay();
 	}
 
-	private void doSummeryQuery(Scanner inputReader) {
-		// TODO Auto-generated method stub
+	void doSummeryQuery(Scanner inputReader) {
+		List<TrafficRecord> records = this.getTrafficInfoBase().getTrafficRecords(Strings.DIRECTION_A);
+		System.out
+		.println(Strings.NL
+				+ Strings.NL
+				+ "====================== Summary Result ==============================="
+				+ Strings.NL);
+		doFiveDaysAverage(records, Strings.DIRECTION_A);
+		records = this.getTrafficInfoBase().getTrafficRecords(Strings.DIRECTION_B);
+		doFiveDaysAverage(records, Strings.DIRECTION_B);
+		inputReader.nextLine();
+		return;
+	}
 
+	private void doFiveDaysAverage(List<TrafficRecord> records, final String direction) {
+		int average = records.size() / NUMBER_OF_DAYS;
+		System.out.println("The 5 day average on direction " + direction +" is " + average);
 	}
 
 	private void doDetailQuery(Scanner inputReader) {
@@ -84,28 +111,46 @@ public class UserInteractive {
 
 		switch (queryType) {
 		case MORNING_VS_EVENING:
-			countAndDisplayMorningNEvening(records);
+			countAndDisplayMorningNEvening(records, direction);
 			break;
-		case HOURS :
-			countAndDisplayHours(records);
+		case HOURS:
+			countAndDisplayHours(records, direction);
 			break;
-		case "3" :
-			countAndDisplayHalfHours(records);
+		case HALF_HOUR:
+			countAndDisplayHalfHours(records, direction);
+			break;
+		case TWENTY_MINUTES:
+			countAndDisplay20Minutes(records, direction);
+			break;
+		case FIFTEEN_MINUTES:
+			countAndDsiplay15Minutes(records, direction);
+			break;
+		default:
+			LOGGER.severe("Unknown query type: " + queryType);
 		}
 	}
 
-	private void countAndDisplayHalfHours(List<TrafficRecord> records) {
-		new HalfHourCounter(records).countAndDisplay();
-		
+	private void countAndDsiplay15Minutes(List<TrafficRecord> records, final String direction) {
+		new FifteenMinutesCounter(records, direction).countAndDisplay();
+
 	}
 
-	private void countAndDisplayHours(List<TrafficRecord> records) {
-		new HourCounter(records).countAndDisplay();
-		
+	private void countAndDisplay20Minutes(List<TrafficRecord> records, final String direction) {
+		new TwentyMinutesCounter(records, direction).countAndDisplay();
 	}
 
-	private void countAndDisplayMorningNEvening(List<TrafficRecord> records) {
-		new MorningEveningCounter(records).countAndDisplay();
+	private void countAndDisplayHalfHours(List<TrafficRecord> records, final String direction) {
+		new HalfHourCounter(records, direction).countAndDisplay();
+
+	}
+
+	private void countAndDisplayHours(List<TrafficRecord> records,final String direction) {
+		new HourCounter(records, direction).countAndDisplay();
+
+	}
+
+	private void countAndDisplayMorningNEvening(List<TrafficRecord> records, final String direction) {
+		new MorningEveningCounter(records, direction).countAndDisplay();
 	}
 
 	static void printQueryType() {

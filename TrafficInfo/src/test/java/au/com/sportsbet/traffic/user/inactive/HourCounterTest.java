@@ -15,6 +15,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 import au.com.sportsbet.common.WeekDay;
 import au.com.sportsbet.common.constants.Constants.Numeral;
+import au.com.sportsbet.common.constants.Constants.Strings;
 import au.com.sportsbet.traffic.dto.TrafficRecord;
 
 @RunWith(PowerMockRunner.class)
@@ -57,7 +58,7 @@ public class HourCounterTest {
 		when(mockRecord5.getDay()).thenReturn(WeekDay.Friday);
 		when(mockRecord5.getHour()).thenReturn(Numeral.TWELVE);
 		
-		HourCounter h = new HourCounter(this.mockList);
+		HourCounter h = new HourCounter(this.mockList, Strings.DIRECTION_A);
 		h.countAndDisplay();
 		
 	}

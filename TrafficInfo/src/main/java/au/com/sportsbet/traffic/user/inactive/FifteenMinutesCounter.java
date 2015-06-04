@@ -16,9 +16,11 @@ public class FifteenMinutesCounter extends BaseCounter {
 	private static final String LABEL_FORTY_FIVE = "45";
 
 	private List<TrafficRecord> records;
-
-	public FifteenMinutesCounter(List<TrafficRecord> records) {
+	private String direction;
+	
+	public FifteenMinutesCounter(List<TrafficRecord> records, final String direction) {
 		this.records = records;
+		this.direction = direction;
 	}
 
 	@Override
@@ -62,17 +64,17 @@ public class FifteenMinutesCounter extends BaseCounter {
 		}
 
 		displayResult(mondayMap, tuesdayMap, wednesdayMap, thursdayMap,
-				fridayMap);
+				fridayMap, this.direction);
 
 	}
 
-	private void displayResult(Map<String, Integer> mondayMap,
+	static void displayResult(Map<String, Integer> mondayMap,
 			Map<String, Integer> tuesdayMap, Map<String, Integer> wednesdayMap,
-			Map<String, Integer> thursdayMap, Map<String, Integer> fridayMap) {
+			Map<String, Integer> thursdayMap, Map<String, Integer> fridayMap, final String direction) {
 		System.out
 				.println(Strings.NL
 						+ Strings.NL
-						+ "====================== Fifteen minutes Result ==============================="
+						+ "====================== Fifteen minutes Result for direction " + direction + " ==============================="
 						+ Strings.NL);
 		printWeekDayTitle();
 

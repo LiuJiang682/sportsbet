@@ -14,9 +14,11 @@ public class HalfHourCounter extends BaseCounter {
 	private static final int FOURTY_EIGHT = 48;
 
 	private List<TrafficRecord> records;
+	private String direction;
 
-	public HalfHourCounter(List<TrafficRecord> records) {
+	public HalfHourCounter(List<TrafficRecord> records, final String direction) {
 		this.records = records;
+		this.direction = direction;
 	}
 
 	@Override
@@ -56,16 +58,16 @@ public class HalfHourCounter extends BaseCounter {
 		}
 
 		displayResult(mondayMap, tuesdayMap, wednesdayMap, thursdayMap,
-				fridayMap);
+				fridayMap, this.direction);
 	}
 
 	static void displayResult(Map<String, Integer> mondayMap,
 			Map<String, Integer> tuesdayMap, Map<String, Integer> wednesdayMap,
-			Map<String, Integer> thursdayMap, Map<String, Integer> fridayMap) {
+			Map<String, Integer> thursdayMap, Map<String, Integer> fridayMap, final String direction) {
 		System.out
 				.println(Strings.NL
 						+ Strings.NL
-						+ "====================== Half Hours Result ==============================="
+						+ "====================== Half Hours Result for direction " + direction + " ==============================="
 						+ Strings.NL);
 		printWeekDayTitle();
 
