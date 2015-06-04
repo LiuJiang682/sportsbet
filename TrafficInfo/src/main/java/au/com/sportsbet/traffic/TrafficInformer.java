@@ -53,6 +53,7 @@ public class TrafficInformer {
 	public static void main(String[] args) {
 		if ((args == null)||(args.length == Numeral.ZERO)) {
 			usage();
+			return;
 		}
 		
 		new TrafficInformer(args[Numeral.ZERO]).doTrafficInfoAnalyse();

@@ -15,20 +15,24 @@ import au.com.sportsbet.traffic.user.inactive.PeakTimeCounter;
 import au.com.sportsbet.traffic.user.inactive.TwentyMinutesCounter;
 
 public class UserInteractive {
+	private static final String SELECTION_DIRECTION_B = "2";
+
+	private static final String SELECTION_DIRECTION_A = "1";
+
 	private static final Logger LOGGER = Logger.getLogger(UserInteractive.class
 			.getName());
 
 	private static final String TWENTY_MINUTES = "4";
 	private static final String HALF_HOUR = "3";
-	private static final String HOURS = "2";
-	private static final String MORNING_VS_EVENING = "1";
+	private static final String HOURS = SELECTION_DIRECTION_B;
+	private static final String MORNING_VS_EVENING = SELECTION_DIRECTION_A;
 	private static final String COMMAND_PEAK_TIME_QUERY = HALF_HOUR;
 	private static final String COMMAND_SUMMARY_QUERY = HOURS;
 	private static final String COMMAND_DETAIL_QUERY = MORNING_VS_EVENING;
 	private static final String COMMAND_QUIT = "q";
 	private static final int NUMBER_OF_DAYS = 5;
 	private static final String FIFTEEN_MINUTES = "5";
-	
+
 	private TrafficInfoBase trafficInfoBase;
 
 	public UserInteractive(TrafficInfoBase trafficInfoBase) {
@@ -70,39 +74,95 @@ public class UserInteractive {
 	}
 
 	private void doPeakTimeQuery(Scanner inputReader) {
-		List<TrafficRecord> records = this.getTrafficInfoBase().getTrafficRecords(Strings.DIRECTION_A);
+		List<TrafficRecord> records = this.getTrafficInfoBase()
+				.getTrafficRecords(Strings.DIRECTION_A);
 		new PeakTimeCounter(records, Strings.DIRECTION_A).countAndDisplay();
-		records = this.getTrafficInfoBase().getTrafficRecords(Strings.DIRECTION_B);
+		records = this.getTrafficInfoBase().getTrafficRecords(
+				Strings.DIRECTION_B);
 		new PeakTimeCounter(records, Strings.DIRECTION_B).countAndDisplay();
 	}
 
 	void doSummeryQuery(Scanner inputReader) {
-		List<TrafficRecord> records = this.getTrafficInfoBase().getTrafficRecords(Strings.DIRECTION_A);
+		List<TrafficRecord> records = this.getTrafficInfoBase()
+				.getTrafficRecords(Strings.DIRECTION_A);
 		System.out
-		.println(Strings.NL
-				+ Strings.NL
-				+ "====================== Summary Result ==============================="
-				+ Strings.NL);
+				.println(Strings.NL
+						+ Strings.NL
+						+ "====================== Summary Result ==============================="
+						+ Strings.NL);
 		doFiveDaysAverage(records, Strings.DIRECTION_A);
-		records = this.getTrafficInfoBase().getTrafficRecords(Strings.DIRECTION_B);
+		records = this.getTrafficInfoBase().getTrafficRecords(
+				Strings.DIRECTION_B);
 		doFiveDaysAverage(records, Strings.DIRECTION_B);
 		inputReader.nextLine();
 		return;
 	}
 
-	private void doFiveDaysAverage(List<TrafficRecord> records, final String direction) {
+	private void doFiveDaysAverage(List<TrafficRecord> records,
+			final String direction) {
 		int average = records.size() / NUMBER_OF_DAYS;
-		System.out.println("The 5 day average on direction " + direction +" is " + average);
+		System.out.println("The 5 day average on direction " + direction
+				+ " is " + average);
 	}
 
 	private void doDetailQuery(Scanner inputReader) {
-		printDirectionSelectionMenu();
-		String direction = inputReader.nextLine();
-		printQueryType();
-		String queryType = inputReader.nextLine();
+
+		String direction = getDirectionSelection(inputReader);
+		String queryType = getQueryTypeSelection(inputReader);
+
 		executeQuery(direction, queryType);
 		inputReader.nextLine();
 		return;
+	}
+
+	String getQueryTypeSelection(Scanner inputReader) {
+
+		String queryType = null;
+		boolean keepLoopping = true;
+
+		do {
+			printQueryType();
+			queryType = inputReader.nextLine();
+
+			switch (queryType) {
+			case MORNING_VS_EVENING:
+			case HOURS:
+			case HALF_HOUR:
+			case TWENTY_MINUTES:
+			case FIFTEEN_MINUTES:
+				keepLoopping = false;
+				break;
+			default:
+				System.err.println("Unknow query type " + queryType);
+			}
+		} while (keepLoopping);
+
+		return queryType;
+	}
+
+	String getDirectionSelection(Scanner inputReader) {
+		String direction = null;
+		boolean keepLoopping = true;
+
+		do {
+			printDirectionSelectionMenu();
+			direction = inputReader.nextLine();
+
+			switch (direction) {
+			case SELECTION_DIRECTION_A:
+				direction = Strings.DIRECTION_A;
+				keepLoopping = false;
+				break;
+			case SELECTION_DIRECTION_B:
+				direction = Strings.DIRECTION_B;
+				keepLoopping = false;
+				break;
+			default:
+				System.err.println("Unknown direction " + direction);
+			}
+		} while (keepLoopping);
+
+		return direction;
 	}
 
 	void executeQuery(String direction, String queryType) {
@@ -130,26 +190,31 @@ public class UserInteractive {
 		}
 	}
 
-	private void countAndDsiplay15Minutes(List<TrafficRecord> records, final String direction) {
+	private void countAndDsiplay15Minutes(List<TrafficRecord> records,
+			final String direction) {
 		new FifteenMinutesCounter(records, direction).countAndDisplay();
 
 	}
 
-	private void countAndDisplay20Minutes(List<TrafficRecord> records, final String direction) {
+	private void countAndDisplay20Minutes(List<TrafficRecord> records,
+			final String direction) {
 		new TwentyMinutesCounter(records, direction).countAndDisplay();
 	}
 
-	private void countAndDisplayHalfHours(List<TrafficRecord> records, final String direction) {
+	private void countAndDisplayHalfHours(List<TrafficRecord> records,
+			final String direction) {
 		new HalfHourCounter(records, direction).countAndDisplay();
 
 	}
 
-	private void countAndDisplayHours(List<TrafficRecord> records,final String direction) {
+	private void countAndDisplayHours(List<TrafficRecord> records,
+			final String direction) {
 		new HourCounter(records, direction).countAndDisplay();
 
 	}
 
-	private void countAndDisplayMorningNEvening(List<TrafficRecord> records, final String direction) {
+	private void countAndDisplayMorningNEvening(List<TrafficRecord> records,
+			final String direction) {
 		new MorningEveningCounter(records, direction).countAndDisplay();
 	}
 

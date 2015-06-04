@@ -131,8 +131,8 @@ public class TrafficDataOrganiserTest {
 		List<String> trafficDetails = new ArrayList<>();
 		trafficDetails.add("A268981");
 		trafficDetails.add("A269123");
-		trafficDetails.add("A111268981");
-		trafficDetails.add("A111269123");
+		trafficDetails.add("A11268981");
+		trafficDetails.add("A11269123");
 		trafficDetails.add("B604960");
 		trafficDetails.add("B605132");
 
@@ -171,8 +171,8 @@ public class TrafficDataOrganiserTest {
 		for (int i = 0; i < 4; i++) {
 			trafficDetails.add("A268981");
 			trafficDetails.add("A269123");
-			trafficDetails.add("A111268981");
-			trafficDetails.add("A111269123");
+			trafficDetails.add("A11268981");
+			trafficDetails.add("A11269123");
 			trafficDetails.add("B604960");
 			trafficDetails.add("B605132");
 		}
@@ -190,7 +190,7 @@ public class TrafficDataOrganiserTest {
 		ArgumentCaptor<String> directionCaptor = ArgumentCaptor.forClass(String.class);
 		ArgumentCaptor<TrafficRecord> recordCaptor = ArgumentCaptor
 				.forClass(TrafficRecord.class);
-		verify(mockBase, times(10)).addTrafficRecord(directionCaptor.capture(), recordCaptor.capture());
+		verify(mockBase, times(14)).addTrafficRecord(directionCaptor.capture(), recordCaptor.capture());
 
 		boolean mondayFound = false;
 		boolean tuesdayFound = false;

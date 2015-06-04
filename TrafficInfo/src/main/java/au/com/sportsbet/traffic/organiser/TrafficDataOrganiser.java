@@ -25,6 +25,8 @@ public class TrafficDataOrganiser {
 			2.5d / DEFAULT_SPEED_IN_MILLISECOND).longValue();
 	private static final Long DEFAULT_DELTA = new Long(100);
 	private static final Long DAY_IN_MILLISECOND = HOUR_IN_MILLISECOND * 24;
+	private static final String DELTA_STR = System.getProperty(Strings.SPEED_DELTA);
+	private static final Long CURRENT_DELTA = NumberUtils.isInteger(DELTA_STR) ? new Integer(DELTA_STR) : DEFAULT_DELTA;
 
 	private TrafficDataOrganiser() {
 	}
@@ -99,7 +101,7 @@ public class TrafficDataOrganiser {
 				 * default. User can set it via -D properties. It could further
 				 * externalize it into a properties file.
 				 */
-				if (diff <= (DEFAULT_2ND_AXLE_TIME + getDetla())) {
+				if (diff <= (DEFAULT_2ND_AXLE_TIME + CURRENT_DELTA)) {
 					return false;
 				} else {
 					return true;
@@ -108,20 +110,15 @@ public class TrafficDataOrganiser {
 		}
 	}
 
+	// Different day. Handle the first axle hit sensor
+	// on 23:59:59.995,
+	// the second axle hit the sensor on 00:00:00.095? case.
 	private static boolean isWithDelta(Long previous) {
-		if (getDetla() < (DAY_IN_MILLISECOND - previous))
+		Long diff = DAY_IN_MILLISECOND - previous;
+		if (diff < CURRENT_DELTA)
 			return true;
 
 		return false;
-	}
-
-	private static Long getDetla() {
-		String deltaStr = System.getProperty(Strings.SPEED_DELTA);
-		LOGGER.info("Speed delta is " + deltaStr);
-		if (NumberUtils.isInteger(deltaStr)) {
-			return new Long(deltaStr);
-		}
-		return DEFAULT_DELTA;
 	}
 
 }

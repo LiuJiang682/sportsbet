@@ -42,4 +42,18 @@ public class UserInteractiveTest {
 		UserInteractive ui = new UserInteractive(this.mockTrafficInfoBase);
 		ui.doSummeryQuery(new Scanner(System.in));
 	}
+	
+	@Ignore
+	@Test
+	public void testGetDirectionSelection() {
+		UserInteractive ui = new UserInteractive(this.mockTrafficInfoBase);
+		ui.getDirectionSelection(new Scanner(System.in));
+	}
+	
+	@Ignore
+	@Test
+	public void testGetQueryTypeSelection() {
+		UserInteractive ui = new UserInteractive(this.mockTrafficInfoBase);
+		ui.getQueryTypeSelection(new Scanner(System.in));
+	}
 }
