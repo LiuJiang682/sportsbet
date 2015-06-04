@@ -33,4 +33,8 @@ public class NumberUtils {
 		
 		return true;
 	}
+	
+	public static Boolean isEven(final Integer num) {
+		return ((num % Numeral.TWO) == Numeral.ZERO);
+	}
 }

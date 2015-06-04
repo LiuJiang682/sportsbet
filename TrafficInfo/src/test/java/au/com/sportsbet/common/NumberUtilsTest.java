@@ -70,4 +70,11 @@ public class NumberUtilsTest {
 			assertEquals("Illegal value: ^12$", message);
 		}
 	}
+	
+	@Test
+	public void testIsEven() {
+		assertTrue(NumberUtils.isEven(new Integer(2)));
+		assertFalse(NumberUtils.isEven(new Integer(1)));
+		assertFalse(NumberUtils.isEven(new Integer(0)));
+	}
 }

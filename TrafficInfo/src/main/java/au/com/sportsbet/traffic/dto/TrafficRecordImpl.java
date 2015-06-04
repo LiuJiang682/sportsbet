@@ -18,12 +18,17 @@ public class TrafficRecordImpl implements TrafficRecord, Serializable {
 	private WeekDay day;
 	private String hhmmss;
 	private String orginal;
+	private int hour;
+	private int minuts;
 	
 	public TrafficRecordImpl(final String direction, final int day, final String hhmmss, final String orginal) {
 		this.direction = direction;
 		this.day = WeekDay.fromCode(day);
 		this.hhmmss = hhmmss;
 		this.orginal = orginal;
+		String[] times = this.getHhmmss().split(DEL); 
+		this.hour = Integer.parseInt(times[Numeral.ZERO]);
+		this.minuts = Integer.parseInt(times[Numeral.ONE]);
 	}
 
 	public String getDirection() {
@@ -45,8 +50,12 @@ public class TrafficRecordImpl implements TrafficRecord, Serializable {
 
 	@Override
 	public int getHour() {
-		String[] times = this.getHhmmss().split(DEL); 
-		return Integer.parseInt(times[Numeral.ZERO]);
+		return this.hour;
+	}
+
+	@Override
+	public int getMinuts() {
+		return this.minuts;
 	}
 	
 }

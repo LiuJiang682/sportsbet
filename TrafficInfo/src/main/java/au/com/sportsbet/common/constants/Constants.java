@@ -10,6 +10,9 @@ public interface Constants {
 		static final String TAB_SPACE = "    ";
 		static final String DIRECTION_A = "A";
 		static final String DIRECTION_B = "B";
+		public static final String LABEL_ZERO = "00";
+		public static final String TWO_DIGITS = "%02d";
+		public static final String LABEL_THIRTY = "30";
 	}
 	
 	public interface Numeral {
@@ -20,6 +23,8 @@ public interface Constants {
 		static final int TWELVE = 12;
 		static final int EIGHTEEN = 18;
 		static final int TWENTY_ONE = 21;
+		static final Integer TWO = 2;
+		public static final int THIRTY = 30;
 	}
 
 }

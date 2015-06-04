@@ -7,4 +7,6 @@ public interface TrafficRecord {
 	public int getHour();
 	
 	public WeekDay getDay();
+
+	public int getMinuts();
 }

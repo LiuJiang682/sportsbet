@@ -6,14 +6,16 @@ import java.util.Scanner;
 import au.com.sportsbet.common.constants.Constants.Strings;
 import au.com.sportsbet.traffic.data.base.TrafficInfoBase;
 import au.com.sportsbet.traffic.dto.TrafficRecord;
+import au.com.sportsbet.traffic.user.inactive.HalfHourCounter;
 import au.com.sportsbet.traffic.user.inactive.HourCounter;
 import au.com.sportsbet.traffic.user.inactive.MorningEveningCounter;
 
 public class UserInteractive {
 
+	private static final String HOURS = "2";
 	private static final String MORNING_VS_EVENING = "1";
 	private static final String COMMAND_PEAK_TIME_QUERY = "3";
-	private static final String COMMAND_SUMMARY_QUERY = "2";
+	private static final String COMMAND_SUMMARY_QUERY = HOURS;
 	private static final String COMMAND_DETAIL_QUERY = MORNING_VS_EVENING;
 	private static final String COMMAND_QUIT = "q";
 	private TrafficInfoBase trafficInfoBase;
@@ -84,9 +86,17 @@ public class UserInteractive {
 		case MORNING_VS_EVENING:
 			countAndDisplayMorningNEvening(records);
 			break;
-		case "2" :
+		case HOURS :
 			countAndDisplayHours(records);
+			break;
+		case "3" :
+			countAndDisplayHalfHours(records);
 		}
+	}
+
+	private void countAndDisplayHalfHours(List<TrafficRecord> records) {
+		new HalfHourCounter(records).countAndDisplay();
+		
 	}
 
 	private void countAndDisplayHours(List<TrafficRecord> records) {
