@@ -1,5 +1,7 @@
 package au.com.sportsbet.common.constants;
 
+import au.com.sportsbet.traffic.organiser.TrafficDataOrganiser;
+
 public interface Constants {
 
 	public interface Strings {
@@ -26,6 +28,7 @@ public interface Constants {
 		static final Integer TWO = 2;
 		public static final int THIRTY = 30;
 		public static final int TWENTY_FOUR = 24;
+		public static final Long DAY_IN_MILLISECOND = TrafficDataOrganiser.HOUR_IN_MILLISECOND * 24;
 	}
 
 }
