@@ -75,6 +75,6 @@ public class NumberUtilsTest {
 	public void testIsEven() {
 		assertTrue(NumberUtils.isEven(new Integer(2)));
 		assertFalse(NumberUtils.isEven(new Integer(1)));
-		assertFalse(NumberUtils.isEven(new Integer(0)));
+		assertTrue(NumberUtils.isEven(new Integer(0)));
 	}
 }
