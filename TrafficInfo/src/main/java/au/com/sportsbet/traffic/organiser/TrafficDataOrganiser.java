@@ -18,13 +18,12 @@ public class TrafficDataOrganiser {
 			.getLogger(TrafficDataOrganiser.class.getName());
 
 	private static final Long DEFAULT_CAR_SPEED = new Long(60000);
-	private static final Long HOUR_IN_MILLISECOND = new Long(3600000);
+	public static final Long HOUR_IN_MILLISECOND = new Long(3600000);
 	private static final Double DEFAULT_SPEED_IN_MILLISECOND = ((double) DEFAULT_CAR_SPEED)
 			/ HOUR_IN_MILLISECOND;
 	private static final Long DEFAULT_2ND_AXLE_TIME = new Double(
 			2.5d / DEFAULT_SPEED_IN_MILLISECOND).longValue();
 	private static final Long DEFAULT_DELTA = new Long(100);
-	private static final Long DAY_IN_MILLISECOND = HOUR_IN_MILLISECOND * 24;
 	private static final String DELTA_STR = System.getProperty(Strings.SPEED_DELTA);
 	private static final Long CURRENT_DELTA = NumberUtils.isInteger(DELTA_STR) ? new Integer(DELTA_STR) : DEFAULT_DELTA;
 
@@ -114,7 +113,7 @@ public class TrafficDataOrganiser {
 	// on 23:59:59.995,
 	// the second axle hit the sensor on 00:00:00.095? case.
 	private static boolean isWithDelta(Long previous) {
-		Long diff = DAY_IN_MILLISECOND - previous;
+		Long diff = Numeral.DAY_IN_MILLISECOND - previous;
 		if (diff < CURRENT_DELTA)
 			return true;
 
